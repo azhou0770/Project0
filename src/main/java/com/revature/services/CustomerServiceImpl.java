@@ -1,8 +1,7 @@
 package com.revature.services;
 
+import com.revature.model.Customer;
 import com.revature.repositories.CustomerRepo;
-import com.revature.repositories.CustomerRepository;
-import org.hibernate.annotations.DialectOverride;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -12,22 +11,18 @@ public class CustomerServiceImpl {
     @Autowired
     CustomerRepo cr;
 
-    @Override
-    public Customer createCustomer(String email, String password){
-        Customer customer = new Customer(email, password);
-        return cr.save(customer);
+    public Customer addCustomer(Customer c) {
+        return cr.save(c);
     }
 
-    @Override
-    public Customer getCustomer(String email, String password){
-        return cr.findByEmailAndPassword(email, password)
+    public Customer getCustomer(int id){
+        return cr.findById(id);
     }
 
-    @Override
     public boolean deleteCustomer(String email, String password){
         Customer customer = cr.findByEmailAndPassword(email, password);
         if (customer != null) {
-            customerRepository.delete(customer);
+            cr.delete(customer);
             return true;
         }
         return false;
