@@ -15,8 +15,8 @@ public class CustomerServiceImpl {
         return cr.save(c);
     }
 
-    public Customer getCustomer(int id){
-        return cr.findById(id);
+    public Customer getCustomer(String email, String password){
+        return cr.findByEmailAndPassword(email, password);
     }
 
     public boolean deleteCustomer(String email, String password){

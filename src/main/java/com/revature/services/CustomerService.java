@@ -5,6 +5,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 public interface CustomerService {
     public Customer addCustomer(Customer c);
-    public Customer getCustomer(int id);
-    public boolean deleteCustomer(int id);
+    public Customer getCustomer(String email, String password);
+    public boolean deleteCustomer(String email, String password);
 }
