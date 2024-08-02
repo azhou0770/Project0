@@ -1,7 +1,8 @@
 package com.revature.repositories;
 
+import com.revature.model.Order;
 import org.springframework.data.jpa.repository.JpaRepository;
 
-public interface OrderRepo implements JpaRepository<Order, Integer> {
+public interface OrderRepo extends JpaRepository<Order, Integer> {
 //    Order findById(int id);
 }

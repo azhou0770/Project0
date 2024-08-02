@@ -1,4 +1,7 @@
 package com.revature.repositories;
 
-public interface ProductRepo implements <Product, Integer> {
+import com.revature.model.Product;
+import org.springframework.data.jpa.repository.JpaRepository;
+
+public interface ProductRepo extends JpaRepository <Product, Integer> {
 }
