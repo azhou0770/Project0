@@ -1,4 +1,4 @@
 package com.revature.repositories;
 
-public class VehicleRepoImpl {
+public interface CustomerRepo {
 }

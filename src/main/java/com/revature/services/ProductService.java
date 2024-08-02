@@ -1,4 +1,4 @@
 package com.revature.services;
 
-public class VehicleService {
+public interface ProductService {
 }
