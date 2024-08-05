@@ -6,19 +6,26 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
-public class CustomerServiceImpl {
+public class CustomerServiceImpl implements CustomerService {
 
     @Autowired
     CustomerRepo cr;
 
-    public Customer addCustomer(Customer c) {
+    @Override
+    public Customer addCustomer(String name, String email, String password){
+        Customer c = new Customer();
+        c.setName(name);
+        c.setEmail(email);
+        c.setPassword(password);
         return cr.save(c);
     }
 
-    public Customer getCustomer(String email, String password){
+    @Override
+    public Customer loginCustomer(String email, String password){
         return cr.findByEmailAndPassword(email, password);
     }
 
+    @Override
     public boolean deleteCustomer(String email, String password){
         Customer customer = cr.findByEmailAndPassword(email, password);
         if (customer != null) {
