@@ -1,7 +1,6 @@
 package com.revature.controllers;
 
 import com.revature.model.Customer;
-import com.revature.model.CustomerRequest;
 import com.revature.services.CustomerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -17,35 +16,30 @@ public class CustomerController {
         this.cs = cs;
     }
 
-    @PostMapping(consumes = "application/json", produces = "application/json")
-    public ResponseEntity<Customer> addCustomer (@RequestBody CustomerRequest cr){
-        String name = cr.getName();
-        String email = cr.getEmail();
-        String password = cr.getPassword();
-
-        Customer customer = cs.addCustomer(name, email, password);
+    // /artist
+    @PostMapping(value = "customer", consumes = "application/json", produces = "application/json")
+    public ResponseEntity<Customer> addCustomer (@RequestBody Customer c){
+        Customer customer = cs.addCustomer(c);
         return new ResponseEntity<>(customer, HttpStatus.OK);
     }
 
     // Considered using GET instead of POST because all it's functionality doing is retrieving the Customer
     // given an email and password. However, it wouldn't make sense to put that in the url for a login.
-    @PostMapping(value = "/login", consumes = "application/json")
-    public ResponseEntity<Customer> loginCustomer(@RequestBody CustomerRequest cr){
-        String email = cr.getEmail();
-        String password = cr.getPassword();
-
-        Customer customer = cs.loginCustomer(email, password);
-        return new ResponseEntity<>(customer, HttpStatus.OK);
+    // /artist?email=test@example.com&password=yourpassword
+    @PostMapping(value = "/login", consumes = "application/json", produces = "application/json")
+    public ResponseEntity<Customer> loginCustomer(@RequestBody Customer c) {
+        Customer customer = cs.loginCustomer(c.getEmail(), c.getPassword());
+        if (customer != null) {
+            return new ResponseEntity<>(customer, HttpStatus.OK);
+        } else {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
     }
 
-    @DeleteMapping(value = "/close", consumes = "application/json")
-    public ResponseEntity<Boolean> deleteCustomer(@RequestBody CustomerRequest cr){
-        String email = cr.getEmail();
-        String password = cr.getPassword();
-        boolean wasDeleted = cs.deleteCustomer(email, password);
+    @DeleteMapping(value = "customer", consumes = "application/json", produces = "application/json")
+    public ResponseEntity<Boolean> deleteCustomer(@RequestBody Customer c){
+        boolean wasDeleted = cs.deleteCustomer(c.getEmail(), c.getPassword());
         return new ResponseEntity<>(wasDeleted, (wasDeleted) ? HttpStatus.NO_CONTENT : HttpStatus.UNPROCESSABLE_ENTITY);
     }
-
-
 
 }
