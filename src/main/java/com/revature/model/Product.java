@@ -1,23 +1,25 @@
 package com.revature.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 
-@Setter
-@Getter
+
 @Entity
-@Table(name = "customer")
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
+@Table(name = "product")
 public class Product {
-    @Id //makes this a primary key
+    @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "p_id", updatable = false)
+    @Column
     private int id;
 
-    @Column(nullable = false, unique = true)
+    @Column
     private String name;
 
-    @Column(nullable = false)
+    @Column
     private int price;
 
     @Column
@@ -25,4 +27,9 @@ public class Product {
 
     @Column
     private String category;
+
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "customer_fk")
+    @JsonBackReference
+    private Customer customer;
 }
