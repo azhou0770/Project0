@@ -1,7 +1,11 @@
 package com.revature.model;
 
 import jakarta.persistence.*;
+import lombok.Getter;
+import lombok.Setter;
 
+@Setter
+@Getter
 @Entity
 @Table(name = "customer")
 public class Product {

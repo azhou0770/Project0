@@ -2,11 +2,16 @@ package com.revature.model;
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import java.util.Date;
 import java.util.List;
 
+
+@Setter
+@Getter
 @Entity
 @Table(name = "customer")
 public class Order {
