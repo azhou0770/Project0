@@ -2,6 +2,7 @@ package com.revature.services;
 
 import com.revature.model.Customer;
 import com.revature.repositories.CustomerRepo;
+import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -12,11 +13,7 @@ public class CustomerServiceImpl implements CustomerService {
     CustomerRepo cr;
 
     @Override
-    public Customer addCustomer(String name, String email, String password){
-        Customer c = new Customer();
-        c.setName(name);
-        c.setEmail(email);
-        c.setPassword(password);
+    public Customer addCustomer(Customer c){
         return cr.save(c);
     }
 
