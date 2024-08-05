@@ -1,31 +1,37 @@
 package com.revature.model;
 
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
-@Setter
-@Getter
+import java.util.List;
+
+
 @Entity
+@Data
 @NoArgsConstructor
 @AllArgsConstructor
 @Table(name = "customer")
 public class Customer {
-    @Id //makes this a primary key
+    @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name="c_id",updatable = false)
+    @Column
     private int id;
 
     @Column
     private String name;
 
-    @Column(nullable = false, unique = true)
+    @Column()
     private String email;
 
-    @Column(nullable = false)
+    @Column()
     private String password;
+
+    @OneToMany(fetch = FetchType.EAGER)
+    @JoinColumn(name = "customer_fk")
+    @JsonManagedReference
+    private List<Product> products;
+
 
 }
