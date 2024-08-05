@@ -33,5 +33,4 @@ public class Customer {
     @JsonManagedReference
     private List<Product> products;
 
-
 }
