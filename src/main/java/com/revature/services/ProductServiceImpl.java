@@ -1,28 +1,23 @@
 package com.revature.services;
 
-import com.revature.model.Customer;
 import com.revature.model.Product;
-import com.revature.repositories.CustomerRepo;
+import com.revature.repositories.StoreOwnerRepo;
 import com.revature.repositories.ProductRepo;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Service
 @Transactional
 public class ProductServiceImpl implements ProductService {
     ProductRepo productRepo;
-    CustomerRepo customerRepo;
+    StoreOwnerRepo storeOwnerRepo;
     @Autowired
-    ProductServiceImpl(ProductRepo productRepo, CustomerRepo customerRepo) {
+    ProductServiceImpl(ProductRepo productRepo, StoreOwnerRepo storeOwnerRepo) {
         this.productRepo = productRepo;
-        this.customerRepo = customerRepo;
+        this.storeOwnerRepo = storeOwnerRepo;
     }
     public List<Product> getAllProducts() {
         return productRepo.findAll();
