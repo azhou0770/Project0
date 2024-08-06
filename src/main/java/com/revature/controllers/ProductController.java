@@ -1,6 +1,7 @@
 package com.revature.controllers;
 
 import com.revature.model.Product;
+import com.revature.model.StoreOwner;
 import com.revature.services.ProductServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -19,24 +20,44 @@ public class ProductController {
     }
 
     @GetMapping("product")
-    public List<Product> getAllProducts() {
-        return productService.getAllProducts();
+    public ResponseEntity<List<Product>> getAllProducts() {
+        List<Product> allProducts = productService.getAllProducts();
+        if (allProducts != null) {
+            return new ResponseEntity<>(allProducts, HttpStatus.OK);
+        } else {
+            return new ResponseEntity<>(null, HttpStatus.NO_CONTENT);
+        }
     }
 
     @PostMapping("product/{id}")
-    public Product postProduct(@PathVariable int id, @RequestBody Product product) {
-        return productService.saveProduct(id, product);
+    public ResponseEntity<Product> postProduct(@PathVariable int id, @RequestBody Product product) {
+        Product product1 = productService.saveProduct(id, product);
+        if (product1 != null) {
+            return new ResponseEntity<>(product1, HttpStatus.OK);
+        } else {
+            return new ResponseEntity<>(null, HttpStatus.UNPROCESSABLE_ENTITY);
+        }
     }
 
 
     @DeleteMapping("product/{id}")
-    public Product deleteProduct(@PathVariable int id) {
-        return productService.removeProduct(id);
+    public ResponseEntity<Boolean> deleteProduct(@PathVariable int id) {
+        Product product = productService.removeProduct(id);
+        if (product != null) {
+            return new ResponseEntity<>(Boolean.TRUE, HttpStatus.OK);
+        } else {
+            return new ResponseEntity<>(Boolean.FALSE, HttpStatus.NOT_FOUND);
+        }
     }
 
     @GetMapping("product/{id}")
-    public Product getProductByID(@PathVariable int id) {
-        return productService.getProductByID(id);
+    public ResponseEntity<Product> getProductByID(@PathVariable int id) {
+        Product product = productService.getProductByID(id);
+        if(product != null) {
+            return new ResponseEntity<>(product, HttpStatus.OK);
+        } else {
+            return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
+        }
     }
 
     @PutMapping("/product/{id}")
@@ -46,8 +67,7 @@ public class ProductController {
         Product changed = productService.updateProduct(product);
 
         if(changed != null) {
-            return new ResponseEntity<>(changed,
-                    HttpStatus.OK);
+            return new ResponseEntity<>(changed, HttpStatus.OK);
         } else {
             return new ResponseEntity<>(null, HttpStatus.UNPROCESSABLE_ENTITY);
         }
