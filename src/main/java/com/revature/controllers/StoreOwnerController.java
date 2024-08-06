@@ -47,6 +47,10 @@ public class StoreOwnerController {
     @PostMapping(value = "/storeowner/products", consumes = "application/json", produces = "application/json")
     public ResponseEntity<List<Product>> getProducts(@RequestBody StoreOwner so) {
         List<Product> products = sos.getProducts(so.getEmail(), so.getPassword());
-        return new ResponseEntity<>(products, HttpStatus.OK);
+        if (products != null){
+            return new ResponseEntity<>(products, HttpStatus.OK);
+        } else {
+            return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
+        }
     }
 }
