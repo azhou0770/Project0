@@ -23,9 +23,9 @@ public class ProductController {
         return productService.getAllProducts();
     }
 
-    @PostMapping("product")
-    public Product postProduct(@RequestBody Product product) {
-        return productService.saveProduct(product);
+    @PostMapping("product/{id}")
+    public Product postProduct(@PathVariable int id, @RequestBody Product product) {
+        return productService.saveProduct(id, product);
     }
 
 

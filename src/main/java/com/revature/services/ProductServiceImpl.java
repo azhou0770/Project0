@@ -1,6 +1,7 @@
 package com.revature.services;
 
 import com.revature.model.Product;
+import com.revature.model.StoreOwner;
 import com.revature.repositories.StoreOwnerRepo;
 import com.revature.repositories.ProductRepo;
 import jakarta.transaction.Transactional;
@@ -22,7 +23,9 @@ public class ProductServiceImpl implements ProductService {
     public List<Product> getAllProducts() {
         return productRepo.findAll();
     }
-    public Product saveProduct(Product product) {
+    public Product saveProduct(int storeOwnerID, Product product) {
+        StoreOwner storeOwner = storeOwnerRepo.findById(storeOwnerID).get();
+        storeOwner.getProducts().add(product);
         return productRepo.save(product);
     }
 
