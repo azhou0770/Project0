@@ -37,6 +37,10 @@ public class StoreOwnerServiceImpl implements StoreOwnerService {
     @Override
     public List<Product> getProducts(String email, String password){
         StoreOwner storeOwner = sor.findByEmailAndPassword(email, password);
-        return storeOwner.getProducts();
+        if (storeOwner != null){
+            return storeOwner.getProducts();
+        } else{
+            return null;
+        }
     }
 }
