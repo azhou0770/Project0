@@ -29,13 +29,13 @@ public class ProductController {
     }
 
 
-    /*@DeleteMapping("product/{id}")
+    @DeleteMapping("product/{id}")
     public Product deleteProduct(@PathVariable int id) {
         return productService.removeProduct(id);
-    }*/
+    }
 
-    /*@GetMapping("product/{id}")
-    public List<Product> getProductByID(@PathVariable int id) {
+    @GetMapping("product/{id}")
+    public Product getProductByID(@PathVariable int id) {
         return productService.getProductByID(id);
     }
 
@@ -43,15 +43,13 @@ public class ProductController {
     public ResponseEntity<Product> updateProduct(@RequestBody Product product,
                                                  @PathVariable int id) {
         product.setId(id);
-        Product change = productService.convertToProduct(product);
-        change = productService.updateProduct(change);
+        Product changed = productService.updateProduct(product);
 
-        if(change != null) {
-            return new ResponseEntity<>(productService.convertToProduct(change),
+        if(changed != null) {
+            return new ResponseEntity<>(changed,
                     HttpStatus.OK);
         } else {
             return new ResponseEntity<>(null, HttpStatus.UNPROCESSABLE_ENTITY);
         }
-    }*/
-
+    }
 }

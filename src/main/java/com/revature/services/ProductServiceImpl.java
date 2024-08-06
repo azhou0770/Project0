@@ -9,7 +9,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 @Transactional
@@ -28,4 +31,21 @@ public class ProductServiceImpl implements ProductService {
         return productRepo.save(product);
     }
 
+    public Product removeProduct(int id) {
+        Product deleted = productRepo.findById(id).get();
+        productRepo.delete(deleted);
+        return deleted;
+    }
+
+    public Product getProductByID(int id) {
+        return productRepo.findById(id).get();
+    }
+
+    public Product updateProduct(Product change) {
+        if(productRepo.findById(change.getId()).isPresent()) {
+            return productRepo.save(change);
+        } else {
+            return null;
+        }
+    }
 }
