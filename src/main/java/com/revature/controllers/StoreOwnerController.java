@@ -1,11 +1,14 @@
 package com.revature.controllers;
 
+import com.revature.model.Product;
 import com.revature.model.StoreOwner;
 import com.revature.services.StoreOwnerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 public class StoreOwnerController {
@@ -41,4 +44,9 @@ public class StoreOwnerController {
         return new ResponseEntity<>(wasDeleted, (wasDeleted) ? HttpStatus.NO_CONTENT : HttpStatus.UNPROCESSABLE_ENTITY);
     }
 
+    @PostMapping(value = "/storeowner/products", consumes = "application/json", produces = "application/json")
+    public ResponseEntity<List<Product>> getProducts(@RequestBody StoreOwner so) {
+        List<Product> products = sos.getProducts(so.getEmail(), so.getPassword());
+        return new ResponseEntity<>(products, HttpStatus.OK);
+    }
 }
